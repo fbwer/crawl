@@ -540,7 +540,7 @@ void jiyva_eat_offlevel_items()
 void ash_scry()
 {
     if (!have_passive(passive_t::xray_vision))
-        return 0;
+        return;
 
     // Radius 5 starting at 4* increasing to 4 at 6*
     int radius = piety_rank()*2 + 1;
