@@ -537,7 +537,7 @@ void jiyva_eat_offlevel_items()
     }
 }
 
-int ash_scry()
+void ash_scry()
 {
     if (!have_passive(passive_t::xray_vision))
         return 0;
@@ -545,7 +545,7 @@ int ash_scry()
     // Radius 5 starting at 4* increasing to 4 at 6*
     int radius = piety_rank()*2 + 1;
 
-    magic_mapping(radius, 100, false);
+    magic_mapping(7, 100, false);
 }
 
 static bool _two_handed()
