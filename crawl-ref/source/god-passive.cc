@@ -341,6 +341,7 @@ static const vector<god_passive> god_passives[] =
         {  2, passive_t::sinv, "are NOW clear of vision" },
         {  3, passive_t::clarity, "are NOW clear of mind" },
         {  4, passive_t::avoid_traps, "avoid traps" },
+        {  4, passive_t::xray_vision, "GOD NOW grants you astral sight" },
     },
 
     // Dithmenos
@@ -534,6 +535,17 @@ void jiyva_eat_offlevel_items()
             return;
         }
     }
+}
+
+int ash_scry()
+{
+    if (!have_passive(passive_t::xray_vision))
+        return 0;
+
+    // Radius 5 starting at 4* increasing to 4 at 6*
+    int radius = piety_rank()*2 + 1;
+
+    magic_mapping(radius, 100, false);
 }
 
 static bool _two_handed()
