@@ -643,7 +643,7 @@ int detect_items(int pow)
         if (have_passive(passive_t::detect_items))
         {
             map_radius = max(map_radius,
-                             min(you.piety / 20 - 1, get_los_radius()));
+                             piety_rank()*2 + 1;);
 
             if (map_radius <= 0)
                 return 0;
