@@ -642,9 +642,9 @@ int detect_items(int pow)
         // Check which god may be providing detect_items and set map_radius
         if (have_passive(passive_t::detect_items))
         {
-            map_radius = max(map_radius,
+            map_radius = max({map_radius,
                              (piety_rank()-2)*2 + 1,
-                             min(you.piety / 20 - 1, get_los_radius()));
+                             min(you.piety / 20 - 1, get_los_radius())});
 
             if (map_radius <= 0)
                 return 0;
