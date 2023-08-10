@@ -96,10 +96,9 @@ static void _automap_from(int x, int y, int mutated)
 {
     if (mutated)
     {
-        const bool godly = have_passive(passive_t::auto_map);
         magic_mapping(8 * mutated,
                       25,
-                      true, godly,
+                      true, false,
                       true, false, coord_def(x,y));
     }
 }
@@ -109,8 +108,6 @@ static int _map_quality()
     int passive = you.get_mutation_level(MUT_PASSIVE_MAPPING);
     // the explanation of this 51 vs max_piety of 200 is left as
     // an exercise to the reader
-    if (have_passive(passive_t::auto_map))
-        passive = max(passive, 2);
     return passive;
 }
 
