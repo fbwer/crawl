@@ -7858,7 +7858,7 @@ int player_monster_detect_radius()
     if (player_equip_unrand(UNRAND_HOOD_ASSASSIN))
         radius = max(radius, 4);
     if (have_passive(passive_t::detect_montier))
-        radius = max(radius, you.piety / 20);
+        radius = max(radius, piety_rank()*2 + 1);
     return min(radius, LOS_MAX_RANGE);
 }
 
