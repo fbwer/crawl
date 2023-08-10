@@ -96,6 +96,7 @@ static void _automap_from(int x, int y, int mutated)
 {
     if (mutated)
     {
+        const bool godly = have_passive(passive_t::auto_map);
         magic_mapping(8 * mutated,
                       25,
                       true, godly,
