@@ -823,7 +823,6 @@ int ash_detect_portals(bool all)
 
     int portals_found = 0;
     const int map_radius = piety_rank()*2 + 1;
-
     if (all)
     {
         for (rectangle_iterator ri(0); ri; ++ri)
