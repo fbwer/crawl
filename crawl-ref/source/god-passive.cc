@@ -48,7 +48,6 @@
 #include "throw.h"
 #include "traps.h"
 #include "unwind.h"
-#include "view.h"
 #include "viewmap.h"
 
 // TODO: template out the differences between this and god_power.
@@ -539,6 +538,13 @@ void jiyva_eat_offlevel_items()
             return;
         }
     }
+}
+
+static colour_t _feat_default_map_colour(dungeon_feature_type feat)
+{
+    if (player_in_branch(BRANCH_SEWER) && feat_is_water(feat))
+        return feat == DNGN_DEEP_WATER ? GREEN : LIGHTGREEN;
+    return BLACK;
 }
 
 void ash_scry()
