@@ -553,7 +553,7 @@ void ash_scry()
         return;
 
     // Radius 5 starting at 4* increasing to 4 at 6*
-    int radius = (piety_rank()-2)*2 + 1;
+    int radius = piety_rank()-2;
 
     //magic_mapping(7, 100, false);
     //bool magic_mapping(int map_radius, int proportion, bool suppress_msg,
