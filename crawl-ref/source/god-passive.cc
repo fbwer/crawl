@@ -341,6 +341,7 @@ static const vector<god_passive> god_passives[] =
         {  2, passive_t::sinv, "are NOW clear of vision" },
         {  3, passive_t::clarity, "are NOW clear of mind" },
         {  4, passive_t::avoid_traps, "avoid traps" },
+        {  4, passive_t::xray_vision, "are NOW have astral sight" },
     },
 
     // Dithmenos
@@ -535,6 +536,110 @@ void jiyva_eat_offlevel_items()
         }
     }
 }
+
+void ash_scry()
+{
+    if (!have_passive(passive_t::xray_vision))
+        return;
+
+    // Radius 5 starting at 4* increasing to 4 at 6*
+    int radius = piety_rank()*2 + 1;
+
+    //magic_mapping(7, 100, false);
+    //bool magic_mapping(int map_radius, int proportion, bool suppress_msg,
+    //               bool force, bool deterministic, bool full_info,
+    //               coord_def origin)
+    if (!is_map_persistent())
+    {
+        return;
+    }
+
+    // now gradually weaker with distance:
+    //const int pfar     = radius * 7 / 10;
+    //const int very_far = radius * 9 / 10;
+
+    //bool did_map = false;
+    //int  num_altars        = 0;
+    //int  num_shops_portals = 0;
+
+    //const FixedArray<uint8_t, GXM, GYM>& difficulty =
+    //    _tile_difficulties(!deterministic);
+
+    for (radius_iterator ri(you.pos(), radius, C_SQUARE);
+         ri; ++ri)
+    {
+        coord_def pos = *ri;
+        int threshold = 100;
+
+        const int dist = grid_distance(you.pos(), pos);
+
+        map_cell& knowledge = env.map_knowledge(pos);
+
+        if (knowledge.changed())
+        {
+            // If the player has already seen the square, update map
+            // knowledge with the new terrain. Otherwise clear what we had
+            // before.
+            if (knowledge.seen())
+            {
+                dungeon_feature_type newfeat = env.grid(pos);
+                trap_type tr = feat_is_trap(newfeat) ? get_trap_type(pos) : TRAP_UNASSIGNED;
+                knowledge.set_feature(newfeat, env.grid_colours(pos), tr);
+            }
+            else
+                knowledge.clear();
+        }
+
+        // Don't assume that DNGN_UNSEEN cells ever count as mapped.
+        // Because of a bug at one point in map forgetting, cells could
+        // spuriously get marked as mapped even when they were completely
+        // unseen.
+        const bool already_mapped = knowledge.mapped()
+                            && knowledge.feat() != DNGN_UNSEEN;
+
+        if ((knowledge.seen() || already_mapped))
+            continue;
+
+        const dungeon_feature_type feat = env.grid(pos);
+
+        bool open = true;
+
+        if (feat_is_solid(feat) && !feat_is_closed_door(feat))
+        {
+            open = false;
+            for (adjacent_iterator ai(pos); ai; ++ai)
+            {
+                if (map_bounds(*ai) && (!feat_is_opaque(env.grid(*ai))
+                                        || feat_is_closed_door(env.grid(*ai))))
+                {
+                    open = true;
+                    break;
+                }
+            }
+        }
+
+        if (open)
+        {
+            if (!knowledge.feat())
+            {
+                auto base_feat = magic_map_base_feat(feat);
+                auto colour = _feat_default_map_colour(base_feat);
+                auto trap = feat_is_trap(env.grid(pos)) ? get_trap_type(pos)
+                                                   : TRAP_UNASSIGNED;
+                knowledge.set_feature(base_feat, colour, trap);
+            }
+            if (emphasise(pos))
+                knowledge.flags |= MAP_EMPHASIZE;
+
+            set_terrain_mapped(pos);
+
+            if (get_cell_map_feature(knowledge) == MF_STAIR_BRANCH)
+                seen_notable_thing(feat, pos);
+        }
+    }
+    return;
+}
+
 
 static bool _two_handed()
 {

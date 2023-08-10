@@ -228,7 +228,8 @@ these curses to worshippers as they explore. Cursed equipment cannot be
 enchanted and can only be removed by shattering it forever. However, these
 curses each improve specific skills. They also please Ashenzari, who will
 reveal the invisible, grant clarity of mind, and protect worshippers from the
-Dungeon's malevolent surprises.
+Dungeon's malevolent surprises. The truly devout will gain a fragment of Ashenzari's
+astral sight, letting them see through walls.
 %%%%
 Beogh powers
 

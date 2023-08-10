@@ -296,6 +296,9 @@ const vector<vector<god_power>> & get_all_god_powers()
             { 4, "Ashenzari will now protect you from malevolent surprises.",
                  "Ashenzari no longer protects you from malevolent surprises.",
                  "Ashenzari protects you from malevolent surprises." },
+            { 4, "Ashenzari will now grant you astral sight.",
+                 "Ashenzari no longer you have astral sight",
+                 "Ashenzari grant you astral sight." },
 
         },
 
