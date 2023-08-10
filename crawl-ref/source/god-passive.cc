@@ -13,6 +13,7 @@
 #include "chardump.h"
 #include "cloud.h"
 #include "coordit.h"
+#include "dgn-overview.h"
 #include "directn.h"
 #include "env.h"
 #include "fight.h"
@@ -45,7 +46,10 @@
 #include "tag-version.h"
 #include "terrain.h"
 #include "throw.h"
+#include "traps.h"
 #include "unwind.h"
+#include "view.h"
+#include "viewmap.h"
 
 // TODO: template out the differences between this and god_power.
 // TODO: use the display method rather than dummy powers in god_powers.
@@ -569,9 +573,6 @@ void ash_scry()
          ri; ++ri)
     {
         coord_def pos = *ri;
-        int threshold = 100;
-
-        const int dist = grid_distance(you.pos(), pos);
 
         map_cell& knowledge = env.map_knowledge(pos);
 
