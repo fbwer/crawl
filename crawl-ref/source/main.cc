@@ -2804,6 +2804,8 @@ static void _do_wait_spells()
     handle_searing_ray();
     handle_maxwells_coupling();
     handle_flame_wave();
+    // This is ability but actually work like wait spell
+    handle_zin_rite();
 }
 
 static void _safe_move_player(coord_def move)

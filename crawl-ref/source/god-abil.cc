@@ -1230,7 +1230,7 @@ static void _zin_saltify(monster* mon)
     }
 }
 
-bool zin_vitalisation()
+bool zin_rite_of_salt()
 {
     simple_god_message(" grants you divine stamina.");
 
