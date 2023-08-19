@@ -1238,7 +1238,7 @@ bool zin_rite_of_salt()
     mpr(msg);
 
     you.props[ZIN_RITE_OF_SALT_KEY] = 
-        - (10 + div_rand_round(random2((27 - you.skill(SK_INVOCATIONS)) * 300), 200));
+        - (20 + div_rand_round(random2((27 - you.skill(SK_INVOCATIONS)) * 300), 200));
     return true;
 }
 
@@ -1321,8 +1321,8 @@ void zin_finish_rite_of_salt()
     int hp_inc = div_rand_round(you.skill(SK_INVOCATIONS), 12);
     hp_inc += roll_dice(div_rand_round(you.skill(SK_INVOCATIONS), 10), 6);
     inc_hp(hp_inc*evil_place);
-    int mp_inc = div_rand_round(you.skill(SK_INVOCATIONS), 3);
-    mp_inc += roll_dice(div_rand_round(you.skill(SK_INVOCATIONS), 2), 4);
+    int mp_inc = div_rand_round(you.skill(SK_INVOCATIONS), 6);
+    mp_inc += roll_dice(div_rand_round(you.skill(SK_INVOCATIONS), 5), 4);
     inc_mp(mp_inc*evil_place);
 }
 
