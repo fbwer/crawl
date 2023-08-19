@@ -1238,7 +1238,7 @@ bool zin_rite_of_salt()
     mpr(msg);
 
     you.props[ZIN_RITE_OF_SALT_KEY] = 
-        - (30 + div_rand_round(random2((27 - you.skill(SK_INVOCATIONS)) * 300), 200));
+        - (10 + div_rand_round(random2((27 - you.skill(SK_INVOCATIONS)) * 300), 200));
     return true;
 }
 
@@ -1307,11 +1307,11 @@ void zin_finish_rite_of_salt()
     //TO DO : change tile salt.
 
     //TO DO : change pseudo heal.
-    int hp_inc = div_rand_round(you.skill(SK_INVOCATIONS), 2);
-    hp_inc += roll_dice(div_rand_round(you.skill(SK_INVOCATIONS), 3), 6);
+    int hp_inc = div_rand_round(you.skill(SK_INVOCATIONS), 12);
+    hp_inc += roll_dice(div_rand_round(you.skill(SK_INVOCATIONS), 10), 6);
     inc_hp(hp_inc*evil_place);
-    int mp_inc = div_rand_round(you.skill(SK_INVOCATIONS), 12);
-    mp_inc += roll_dice(div_rand_round(you.skill(SK_INVOCATIONS), 10), 4);
+    int mp_inc = div_rand_round(you.skill(SK_INVOCATIONS), 3);
+    mp_inc += roll_dice(div_rand_round(you.skill(SK_INVOCATIONS), 2), 4);
     inc_mp(mp_inc*evil_place);
 }
 
