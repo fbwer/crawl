@@ -1280,8 +1280,7 @@ void zin_remove_rite_of_salt()
 {
     if (!you.props.exists(ZIN_RITE_OF_SALT_KEY))
         return;
-    if (!quiet)
-        mpr("The rite has been suspended.");
+    mpr("The rite has been suspended.");
     you.props.erase(ZIN_RITE_OF_SALT_KEY);
 }
 
