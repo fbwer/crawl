@@ -1311,7 +1311,7 @@ void zin_finish_rite_of_salt()
          ri; ++ri)
         {
             coord_def pos = *ri;
-            if (!feat_is_wall(env.grid(*di)))
+            if (!feat_is_wall(env.grid(*ri)))
             {
                 env.pgrid(pos) |= FPROP_BLOODY;
             }
