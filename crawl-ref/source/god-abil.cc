@@ -1304,7 +1304,18 @@ void zin_finish_rite_of_salt()
         )
         evil_place = 3;
 
-    //TO DO : change tile salt.
+    // Replace some terrain with salt.
+    // TO DO : change blood to salt
+    for (radius_iterator ri(you.pos(),
+                            evil_place-1, C_SQUARE);
+         ri; ++ri)
+        {
+            coord_def pos = *ri;
+            if (!feat_is_wall(env.grid(*di)))
+            {
+                env.pgrid(pos) |= FPROP_BLOODY;
+            }
+        }
 
     //TO DO : change pseudo heal.
     int hp_inc = div_rand_round(you.skill(SK_INVOCATIONS), 12);
