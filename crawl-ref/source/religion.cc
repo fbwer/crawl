@@ -863,8 +863,8 @@ static void _inc_penance(god_type god, int val)
         }
         else if (god == GOD_ZIN)
         {
-            if (you.duration[DUR_DIVINE_STAMINA])
-                zin_remove_divine_stamina();
+            if (you.duration[DUR_RITE_OF_SALT])
+                you.props.erase(DUR_RITE_OF_SALT);
             if (env.sanctuary_time)
                 remove_sanctuary();
         }
@@ -3072,8 +3072,8 @@ void excommunication(bool voluntary, god_type new_god)
         break;
 
     case GOD_ZIN:
-        if (you.duration[DUR_DIVINE_STAMINA])
-            zin_remove_divine_stamina();
+        if (you.duration[DUR_RITE_OF_SALT])
+            you.props.erase(DUR_RITE_OF_SALT);
 
         if (env.sanctuary_time)
             remove_sanctuary();

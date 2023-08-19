@@ -2949,11 +2949,6 @@ void melee_attack::mons_apply_attack_flavour()
     case AF_MINIPARA:
     {
         // Doesn't affect the poison-immune.
-        if (defender->is_player() && you.duration[DUR_DIVINE_STAMINA] > 0)
-        {
-            mpr("Your divine stamina protects you from poison!");
-            break;
-        }
         if (defender->res_poison() >= 3 || coinflip())
             break;
         if (defender->res_poison() > 0 && !one_chance_in(3))
@@ -2965,12 +2960,7 @@ void melee_attack::mons_apply_attack_flavour()
     case AF_POISON_PARALYSE:
     {
         // Doesn't affect the poison-immune.
-        if (defender->is_player() && you.duration[DUR_DIVINE_STAMINA] > 0)
-        {
-            mpr("Your divine stamina protects you from poison!");
-            break;
-        }
-        else if (defender->res_poison() >= 3)
+        if (defender->res_poison() >= 3)
             break;
 
         // Same frequency as AF_POISON and AF_POISON_STRONG.
