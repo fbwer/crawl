@@ -1238,7 +1238,7 @@ bool zin_rite_of_salt()
     mpr(msg);
 
     you.props[ZIN_RITE_OF_SALT_KEY] = 
-        - (20 + div_rand_round(random2((27 - you.skill(SK_INVOCATIONS)) * 300), 200));
+        - (30 + div_rand_round(random2((27 - you.skill(SK_INVOCATIONS)) * 300), 200));
     return true;
 }
 
