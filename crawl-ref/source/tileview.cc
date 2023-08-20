@@ -1485,7 +1485,7 @@ void tile_apply_properties(const coord_def &gc, packed_cell &cell)
 
     cell.flv = tile_env.flv(gc);
 
-    if (env.level_state & LSTATE_ZIN_SALT && testbits(env.pgrid(gc), FPROP_ZIN_SALT))
+    if (env.level_state & LSTATE_ZIN_SALT && env.map_knowledge(gc).flags & MAP_ZIN_SALT)
     {
         cell.flv.floor = TILE_FLOOR_ICY;
 

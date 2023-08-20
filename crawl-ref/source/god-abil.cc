@@ -1312,7 +1312,7 @@ void zin_finish_rite_of_salt()
         {
             coord_def pos = *ri;
             // TO DO : change icy to salt
-            env.pgrid(pos) |= FPROP_ZIN_SALT;
+            env.map_knowledge(pos).flags |= MAP_ZIN_SALT;
         }
         env.level_state |= LSTATE_ZIN_SALT;
 
