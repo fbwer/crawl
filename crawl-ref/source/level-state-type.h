@@ -16,4 +16,5 @@ enum level_state_type
     LSTATE_SLIMY_WALL     = (1 << 4), // Any slime walls exist.
     LSTATE_STILL_WINDS    = (1 << 5), // Cloud generation is disabled
     LSTATE_ICY_WALL       = (1 << 6), // Any icy walls exist.
+    LSTATE_ZIN_SALT       = (1 << 7), // Zin's rite of salt floor
 };

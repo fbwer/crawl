@@ -1312,9 +1312,9 @@ void zin_finish_rite_of_salt()
         {
             coord_def pos = *ri;
             // TO DO : change icy to salt
-            env.pgrid(pos) |= FPROP_ICY;
+            env.pgrid(pos) |= FPROP_ZIN_SALT;
         }
-        env.level_state |= LSTATE_ICY_WALL;
+        env.level_state |= LSTATE_ZIN_SALT;
 
     //TO DO : change pseudo heal.
     int hp_inc = div_rand_round(you.skill(SK_INVOCATIONS), 24);

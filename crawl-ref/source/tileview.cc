@@ -1485,7 +1485,12 @@ void tile_apply_properties(const coord_def &gc, packed_cell &cell)
 
     cell.flv = tile_env.flv(gc);
 
-    if (env.level_state & LSTATE_SLIMY_WALL)
+    if (env.level_state & LSTATE_ZIN_SALT && testbits(env.pgrid(gc), FPROP_ZIN_SALT))
+    {
+        cell.flv.floor = TILE_FLOOR_ICY;
+
+    }
+    else if (env.level_state & LSTATE_SLIMY_WALL)
     {
         for (adjacent_iterator ai(gc); ai; ++ai)
             if (env.map_knowledge(*ai).feat() == DNGN_SLIMY_WALL)
