@@ -1287,13 +1287,13 @@ void zin_remove_rite_of_salt()
 void zin_finish_rite_of_salt()
 {
     mpr("You finish a ritual of salt.");
-    int evil_place = 2;
+    int evil_place = 1;
     if (player_in_branch(BRANCH_ORC)
         ||player_in_branch(BRANCH_SLIME)
         ||player_in_branch(BRANCH_ABYSS)
         ||player_in_branch(BRANCH_OSSUARY)
         )
-        evil_place = 3;
+        evil_place = 2;
     if (player_in_branch(BRANCH_CRYPT)
         ||player_in_branch(BRANCH_TOMB)
         ||player_in_branch(BRANCH_VESTIBULE)
@@ -1302,19 +1302,16 @@ void zin_finish_rite_of_salt()
         ||player_in_branch(BRANCH_COCYTUS)
         ||player_in_branch(BRANCH_TARTARUS)
         )
-        evil_place = 4;
+        evil_place = 3;
 
     // Replace some terrain with salt.
-    // TO DO : change blood to salt
     for (radius_iterator ri(you.pos(),
-                            evil_place-1, C_SQUARE);
+                            evil_place, C_SQUARE);
          ri; ++ri)
         {
             coord_def pos = *ri;
-            if (!feat_is_wall(env.grid(*ri)))
-            {
-                env.pgrid(pos) |= FPROP_BLOODY;
-            }
+            // TO DO : change icy to salt
+            env.pgrid(pos) |= FPROP_ICY;
         }
 
     //TO DO : change pseudo heal.
