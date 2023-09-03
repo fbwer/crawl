@@ -1292,7 +1292,8 @@ void zin_remove_divine_ritual()
 void zin_finish_divine_ritual()
 {
     mpr("You finish a ritual of salt.");
-    int evil_place = 2;
+    int evil_place = 1;
+    int salted = 0;
     if (player_in_branch(BRANCH_ORC)
         ||player_in_branch(BRANCH_SLIME)
         ||player_in_branch(BRANCH_ABYSS)
@@ -1307,28 +1308,27 @@ void zin_finish_divine_ritual()
         ||player_in_branch(BRANCH_COCYTUS)
         ||player_in_branch(BRANCH_TARTARUS)
         )
-        evil_place = 4;
+        evil_place = LOS_NONE;
 
     // Replace some terrain with salt.
     // TO DO : change blood to salt
     for (radius_iterator ri(you.pos(),
-                            evil_place-1, C_SQUARE);
+                            evil_place, C_SQUARE);
          ri; ++ri)
         {
             coord_def pos = *ri;
             if (!feat_is_wall(env.grid(*ri)))
             {
                 env.pgrid(pos) |= FPROP_BLOODY;
+                salted++;
             }
         }
 
     //TO DO : change pseudo heal.
-    int hp_inc = div_rand_round(you.skill(SK_INVOCATIONS), 24);
-    hp_inc += roll_dice(div_rand_round(you.skill(SK_INVOCATIONS), 20), 6);
-    inc_hp(hp_inc*evil_place);
-    int mp_inc = div_rand_round(you.skill(SK_INVOCATIONS), 12);
-    mp_inc += roll_dice(div_rand_round(you.skill(SK_INVOCATIONS), 10), 4);
-    inc_mp(mp_inc*evil_place);
+    inc_hp(salted);
+    int mp_inc = div_rand_round(you.skill(SK_INVOCATIONS), 6);
+    mp_inc += roll_dice(div_rand_round(you.skill(SK_INVOCATIONS), 5), 4);
+    inc_mp(max(mp_inc,salted));
 }
 
 spret zin_imprison(const coord_def& target, bool fail)
