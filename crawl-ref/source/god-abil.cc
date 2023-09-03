@@ -1299,7 +1299,7 @@ void zin_finish_divine_ritual()
         ||player_in_branch(BRANCH_ABYSS)
         ||player_in_branch(BRANCH_OSSUARY))
         evil_place = 3;
-    radius_iterator ri(you.pos(),evil_place,C_SQUARE);
+    radius_iterator ri(you.pos(),evil_place,C_SQUARE,LOS_NO_TRANS);
     if (player_in_branch(BRANCH_CRYPT)
         ||player_in_branch(BRANCH_TOMB)
         ||player_in_branch(BRANCH_VESTIBULE)
@@ -1308,7 +1308,7 @@ void zin_finish_divine_ritual()
         ||player_in_branch(BRANCH_COCYTUS)
         ||player_in_branch(BRANCH_TARTARUS))
         {
-            ri = radius_iterator(you.pos(),LOS_NONE);
+            ri = radius_iterator(you.pos(),LOS_NO_TRANS);
         }
 
     // Replace some terrain with salt.
