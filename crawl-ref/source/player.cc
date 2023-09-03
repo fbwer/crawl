@@ -1541,8 +1541,7 @@ int player_res_poison(bool allow_random, bool temp, bool items)
     if (you.is_nonliving(temp)
         || you.is_lifeless_undead(temp)
         || form_rp == 3
-        || items && player_equip_unrand(UNRAND_OLGREB)
-        || temp && you.duration[DUR_DIVINE_STAMINA])
+        || items && player_equip_unrand(UNRAND_OLGREB))
     {
         return 3;
     }
@@ -4142,13 +4141,6 @@ bool confuse_player(int amount, bool quiet, bool force)
         return false;
     }
 
-    if (!force && you.duration[DUR_DIVINE_STAMINA] > 0)
-    {
-        if (!quiet)
-            mpr("Your divine stamina protects you from confusion!");
-        return false;
-    }
-
     const int old_value = you.duration[DUR_CONF];
     you.increase_duration(DUR_CONF, amount, 40);
 
@@ -4184,12 +4176,6 @@ bool poison_player(int amount, string source, string source_aux, bool force)
 
     if (crawl_state.disables[DIS_AFFLICTIONS])
         return false;
-
-    if (you.duration[DUR_DIVINE_STAMINA] > 0)
-    {
-        mpr("Your divine stamina protects you from poison!");
-        return false;
-    }
 
     if (player_res_poison() >= 3)
     {
@@ -4474,12 +4460,6 @@ bool miasma_player(actor *who, string source_aux)
 
     if (you.res_miasma() || you.duration[DUR_DEATHS_DOOR])
         return false;
-
-    if (you.duration[DUR_DIVINE_STAMINA] > 0)
-    {
-        mpr("Your divine stamina protects you from the miasma!");
-        return false;
-    }
 
     bool success = poison_player(5 + roll_dice(3, 12),
                                  who ? who->name(DESC_A) : "",
@@ -6881,13 +6861,6 @@ void player::petrify(const actor *who, bool force)
         canned_msg(MSG_YOU_UNAFFECTED);
         return;
     }
-
-    if (duration[DUR_DIVINE_STAMINA] > 0)
-    {
-        mpr("Your divine stamina protects you from petrification!");
-        return;
-    }
-
     // Petrification always wakes you up
     if (asleep())
         you.awaken();
@@ -7100,12 +7073,6 @@ bool player::sicken(int amount)
 
     if (res_miasma() || amount <= 0)
         return false;
-
-    if (duration[DUR_DIVINE_STAMINA] > 0)
-    {
-        mpr("Your divine stamina protects you from disease!");
-        return false;
-    }
 
     mpr("You feel ill.");
     increase_duration(DUR_SICKNESS, amount, 210);
@@ -8429,7 +8396,7 @@ bool player::immune_to_hex(const spell_type hex) const
     case SPELL_CONFUSE:
     case SPELL_CONFUSION_GAZE:
     case SPELL_MASS_CONFUSION:
-        return clarity() || you.duration[DUR_DIVINE_STAMINA] > 0;
+        return clarity();
     case SPELL_TELEPORT_OTHER:
     case SPELL_BLINK_OTHER:
     case SPELL_BLINK_OTHER_CLOSE:

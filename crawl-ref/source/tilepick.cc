@@ -3659,8 +3659,8 @@ tileidx_t tileidx_ability(const ability_type ability)
     // Zin
     case ABIL_ZIN_RECITE:
         return TILEG_ABILITY_ZIN_RECITE;
-    case ABIL_ZIN_VITALISATION:
-        return TILEG_ABILITY_ZIN_VITALISATION;
+    case ABIL_ZIN_DIVINE_RITUAL:
+        return TILEG_ABILITY_ZIN_DIVINE_RITUAL;
     case ABIL_ZIN_IMPRISON:
         return TILEG_ABILITY_ZIN_IMPRISON;
     case ABIL_ZIN_SANCTUARY:

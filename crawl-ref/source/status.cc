@@ -130,6 +130,16 @@ static string _charge_text()
     return _charge_strings[charge_index];
 }
 
+static vector<string> _ritual_strings = { "Rite-", "Rite/",
+                                          "Rite|", "Rite\\"};
+
+static string _ritual_text()
+{
+    static int ritual_index = 0;
+    ritual_index = (ritual_index + 1) % 4;
+    return _ritual_strings[ritual_index];
+}
+
 /**
  * Populate a status_info struct from the duration_data struct corresponding
  * to the given duration_type.
@@ -685,6 +695,14 @@ bool fill_status_info(int status, status_info& inf)
         {
             inf.light_colour = LIGHTCYAN;
             inf.light_text   = _charge_text().c_str();
+        }
+        break;
+
+    case STATUS_DIVINE_RITUAL:
+        if (you.props.exists(ZIN_DIVINE_RITUAL_KEY))
+        {
+            inf.light_colour = WHITE;
+            inf.light_text   = _ritual_text().c_str();
         }
         break;
 
