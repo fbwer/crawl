@@ -1302,6 +1302,7 @@ void zin_finish_divine_ritual()
     radius_iterator ri(you.pos(),evil_place,C_SQUARE,LOS_NO_TRANS);
     if (player_in_branch(BRANCH_CRYPT)
         ||player_in_branch(BRANCH_TOMB)
+        ||player_in_branch(BRANCH_PANDEMONIUM)
         ||player_in_branch(BRANCH_VESTIBULE)
         ||player_in_branch(BRANCH_DIS)
         ||player_in_branch(BRANCH_GEHENNA)
