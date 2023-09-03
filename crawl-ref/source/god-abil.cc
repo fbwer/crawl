@@ -1355,7 +1355,7 @@ spret zin_imprison(const coord_def& target, bool fail)
     int power = 3 + (roll_dice(5, you.skill(SK_INVOCATIONS, 5) + 12) / 26);
 
     // For divine ritual
-    if (you.props.exists(ZIN_DIVINE_RITUAL_CHECK_KEY))
+    if (you.props.exists(ZIN_DIVINE_RITUAL_KEY))
         you.props[ZIN_DIVINE_RITUAL_CHECK_KEY] = true;
     return cast_tomb(power, mons, -GOD_ZIN, fail);
 }
@@ -1380,7 +1380,7 @@ void zin_sanctuary()
     you.pet_target = MHITYOU;
 
     // For divine ritual
-    if (you.props.exists(ZIN_DIVINE_RITUAL_CHECK_KEY))
+    if (you.props.exists(ZIN_DIVINE_RITUAL_KEY))
         you.props[ZIN_DIVINE_RITUAL_CHECK_KEY] = true;
     create_sanctuary(you.pos(), 7 + you.skill_rdiv(SK_INVOCATIONS) / 2);
 }
