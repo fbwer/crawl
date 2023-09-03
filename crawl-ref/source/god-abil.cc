@@ -1298,9 +1298,8 @@ void zin_finish_divine_ritual()
         ||player_in_branch(BRANCH_SLIME)
         ||player_in_branch(BRANCH_ABYSS)
         ||player_in_branch(BRANCH_OSSUARY))
-        evil_place = 3;
-    radius_iterator ri(you.pos(),evil_place,C_SQUARE,LOS_NO_TRANS);
-    if (player_in_branch(BRANCH_CRYPT)
+        evil_place = 2;
+    else if (player_in_branch(BRANCH_CRYPT)
         ||player_in_branch(BRANCH_TOMB)
         ||player_in_branch(BRANCH_PANDEMONIUM)
         ||player_in_branch(BRANCH_VESTIBULE)
@@ -1308,13 +1307,11 @@ void zin_finish_divine_ritual()
         ||player_in_branch(BRANCH_GEHENNA)
         ||player_in_branch(BRANCH_COCYTUS)
         ||player_in_branch(BRANCH_TARTARUS))
-        {
-            ri = radius_iterator(you.pos(),LOS_NO_TRANS);
-        }
-
+        evil_place = 4;
     // Replace some terrain with salt.
     // TO DO : change blood to salt
-    for (;ri; ++ri)
+    for (radius_iterator ri(you.pos(),evil_place,C_SQUARE,LOS_NO_TRANS)
+        ;ri; ++ri)
         {
             coord_def pos = *ri;
             if (!feat_is_wall(env.grid(*ri)))
