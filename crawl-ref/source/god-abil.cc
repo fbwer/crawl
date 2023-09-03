@@ -1293,27 +1293,23 @@ void zin_finish_divine_ritual()
 {
     mpr("You finish a ritual of salt.");
     int salted = 0;
-    radius_iterator ri;
-    if (player_in_branch(BRANCH_CRYPT)
-        ||player_in_branch(BRANCH_TOMB)
-        ||player_in_branch(BRANCH_VESTIBULE)
-        ||player_in_branch(BRANCH_DIS)
-        ||player_in_branch(BRANCH_GEHENNA)
-        ||player_in_branch(BRANCH_COCYTUS)
-        ||player_in_branch(BRANCH_TARTARUS))
-        {
-            ri = radius_iterator(you.pos(),LOS_NONE);
-        }
-    else 
-        {
-            int evil_place = 1;
-            if (player_in_branch(BRANCH_ORC)
-                ||player_in_branch(BRANCH_SLIME)
-                ||player_in_branch(BRANCH_ABYSS)
-                ||player_in_branch(BRANCH_OSSUARY))
-                evil_place = 3;
-            ri = radius_iterator(you.pos(),evil_place,C_SQUARE);
-        }
+    int evil_place = 1;
+    if (player_in_branch(BRANCH_ORC)
+        ||player_in_branch(BRANCH_SLIME)
+        ||player_in_branch(BRANCH_ABYSS)
+        ||player_in_branch(BRANCH_OSSUARY))
+        evil_place = 3;
+    radius_iterator ri(you.pos(),evil_place,C_SQUARE);
+    else if (player_in_branch(BRANCH_CRYPT)
+            ||player_in_branch(BRANCH_TOMB)
+            ||player_in_branch(BRANCH_VESTIBULE)
+            ||player_in_branch(BRANCH_DIS)
+            ||player_in_branch(BRANCH_GEHENNA)
+            ||player_in_branch(BRANCH_COCYTUS)
+            ||player_in_branch(BRANCH_TARTARUS))
+            {
+                ri = radius_iterator(you.pos(),LOS_NONE);
+            }
 
     // Replace some terrain with salt.
     // TO DO : change blood to salt
