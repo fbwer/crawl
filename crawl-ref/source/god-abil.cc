@@ -1292,29 +1292,32 @@ void zin_remove_divine_ritual()
 void zin_finish_divine_ritual()
 {
     mpr("You finish a ritual of salt.");
-    int evil_place = 1;
     int salted = 0;
-    if (player_in_branch(BRANCH_ORC)
-        ||player_in_branch(BRANCH_SLIME)
-        ||player_in_branch(BRANCH_ABYSS)
-        ||player_in_branch(BRANCH_OSSUARY)
-        )
-        evil_place = 3;
-    else if (player_in_branch(BRANCH_CRYPT)
+    radius_iterator ri;
+    if (player_in_branch(BRANCH_CRYPT)
         ||player_in_branch(BRANCH_TOMB)
         ||player_in_branch(BRANCH_VESTIBULE)
         ||player_in_branch(BRANCH_DIS)
         ||player_in_branch(BRANCH_GEHENNA)
         ||player_in_branch(BRANCH_COCYTUS)
-        ||player_in_branch(BRANCH_TARTARUS)
-        )
-        evil_place = LOS_NONE;
+        ||player_in_branch(BRANCH_TARTARUS))
+        {
+            ri = radius_iterator(you.pos(),LOS_NONE);
+        }
+    else 
+        {
+            int evil_place = 1;
+            if (player_in_branch(BRANCH_ORC)
+                ||player_in_branch(BRANCH_SLIME)
+                ||player_in_branch(BRANCH_ABYSS)
+                ||player_in_branch(BRANCH_OSSUARY))
+                evil_place = 3;
+            ri = radius_iterator(you.pos(),evil_place,C_SQUARE);
+        }
 
     // Replace some terrain with salt.
     // TO DO : change blood to salt
-    for (radius_iterator ri(you.pos(),
-                            evil_place, C_SQUARE);
-         ri; ++ri)
+    for (;ri; ++ri)
         {
             coord_def pos = *ri;
             if (!feat_is_wall(env.grid(*ri)))
