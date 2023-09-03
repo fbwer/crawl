@@ -1259,7 +1259,7 @@ void zin_handle_divine_ritual()
         return;
     }
 
-    if (crawl_state.prev_cmd != CMD_WAIT || !you.props.exists(ZIN_DIVINE_RITUAL_CHECK_KEY))
+    if (crawl_state.prev_cmd != CMD_WAIT && !you.props.exists(ZIN_DIVINE_RITUAL_CHECK_KEY))
     {
         zin_remove_divine_ritual();
         return;
