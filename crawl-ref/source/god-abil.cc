@@ -1237,6 +1237,7 @@ bool zin_divine_ritual()
     insert_commands(msg, { CMD_WAIT });
     mpr(msg);
 
+    you.props[ZIN_DIVINE_RITUAL_CHECK_KEY] = true;
     you.props[ZIN_DIVINE_RITUAL_KEY] = 
         - (30 + div_rand_round(random2((27 - you.skill(SK_INVOCATIONS)) * 300), 200));
     return true;
@@ -1254,10 +1255,11 @@ void zin_handle_divine_ritual()
         mpr("You feel recovered with salt...");
         you.props[ZIN_DIVINE_RITUAL_KEY] = - (ritual_remaining
                                             + you.time_taken);
+        you.props.erase(ZIN_DIVINE_RITUAL_CHECK_KEY);
         return;
     }
 
-    if (crawl_state.prev_cmd != CMD_WAIT)
+    if (crawl_state.prev_cmd != CMD_WAIT || !you.props.exists(ZIN_DIVINE_RITUAL_CHECK_KEY))
     {
         zin_remove_divine_ritual();
         return;
@@ -1267,12 +1269,14 @@ void zin_handle_divine_ritual()
     {
         you.time_taken = ritual_remaining;
         you.props.erase(ZIN_DIVINE_RITUAL_KEY);
+        you.props.erase(ZIN_DIVINE_RITUAL_CHECK_KEY);
         zin_finish_divine_ritual();
         return;
     }
 
     you.props[ZIN_DIVINE_RITUAL_KEY] = ritual_remaining
                                       - you.time_taken;
+    you.props.erase(ZIN_DIVINE_RITUAL_CHECK_KEY);
     mpr("You feel recovered with salt...");
 }
 
@@ -1281,6 +1285,7 @@ void zin_remove_divine_ritual()
     if (!you.props.exists(ZIN_DIVINE_RITUAL_KEY))
         return;
     mpr("The rite has been suspended.");
+    you.props.erase(ZIN_DIVINE_RITUAL_CHECK_KEY);
     you.props.erase(ZIN_DIVINE_RITUAL_KEY);
 }
 
@@ -1349,6 +1354,9 @@ spret zin_imprison(const coord_def& target, bool fail)
 
     int power = 3 + (roll_dice(5, you.skill(SK_INVOCATIONS, 5) + 12) / 26);
 
+    // For divine ritual
+    if (you.props.exists(ZIN_DIVINE_RITUAL_CHECK_KEY))
+        you.props[ZIN_DIVINE_RITUAL_CHECK_KEY] = true;
     return cast_tomb(power, mons, -GOD_ZIN, fail);
 }
 
@@ -1370,6 +1378,10 @@ void zin_sanctuary()
 
     // Pets stop attacking and converge on you.
     you.pet_target = MHITYOU;
+
+    // For divine ritual
+    if (you.props.exists(ZIN_DIVINE_RITUAL_CHECK_KEY))
+        you.props[ZIN_DIVINE_RITUAL_CHECK_KEY] = true;
     create_sanctuary(you.pos(), 7 + you.skill_rdiv(SK_INVOCATIONS) / 2);
 }
 

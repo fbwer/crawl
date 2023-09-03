@@ -2717,6 +2717,9 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
     {
         if (zin_check_recite_to_monsters() == 1)
         {
+            // For divine ritual
+            if (you.props.exists(ZIN_DIVINE_RITUAL_CHECK_KEY))
+                you.props[ZIN_DIVINE_RITUAL_CHECK_KEY] = true;
             fail_check();
             you.attribute[ATTR_RECITE_TYPE] =
                 (recite_type) random2(NUM_RECITE_TYPES); // This is just flavor

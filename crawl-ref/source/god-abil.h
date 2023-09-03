@@ -18,6 +18,7 @@
 class dist;
 
 #define ZIN_DIVINE_RITUAL_KEY "zin_divine_ritual_time"
+#define ZIN_DIVINE_RITUAL_CHECK_KEY "zin_divine_ritual_check"
 
 #define BEOGH_RANGE_WPN_GIFT_KEY "given beogh range weapon"
 #define BEOGH_MELEE_WPN_GIFT_KEY "given beogh melee weapon"
